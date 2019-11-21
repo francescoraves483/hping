@@ -1,5 +1,10 @@
-hping3 README file
-antirez@invece.org
+hping3p README file
+antirez@invece.
+
+hping3p is a patched version of hping3, by francescoraves483.
+It adds the --rand-source-pool option to hping3, leaving the
+rest of the features untouched, at least for the time being.
+License remains and should remain GPLv2.
 
 DESCRIPTION
 

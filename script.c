@@ -6,7 +6,7 @@
  *
  * link header size in recv_handlers, -1 means autodetection. */
 
-/* $Id: script.c,v 1.20 2004/05/29 06:48:13 antirez Exp $ */
+/* $Id: script.c,v 1.21p 2019/11/21 10:47:13 antirez Exp $ */
 
 #ifdef USE_TCL
 
@@ -1306,7 +1306,7 @@ static int HpingTcl_AppInit(Tcl_Interp *interp)
 	HpingRecvInit(recv_handlers, HPING_IFACE_MAX);
 	/* Register hping API */
 	Tcl_SetVar(interp, "hping_version", RELEASE_VERSION, TCL_GLOBAL_ONLY);
-	Tcl_SetVar(interp, "tcl_prompt1", "puts -nonewline {hping3> }", TCL_GLOBAL_ONLY);
+	Tcl_SetVar(interp, "tcl_prompt1", "puts -nonewline {hping3p> }", TCL_GLOBAL_ONLY);
 	Tcl_CreateObjCommand(interp, "hping", HpingObjCmd, (ClientData)NULL,
 			(Tcl_CmdDeleteProc*)NULL);
 	Tcl_CreateObjCommand(interp, "+", BigBasicObjCmd, (ClientData)NULL,

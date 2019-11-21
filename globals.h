@@ -8,7 +8,7 @@
  * $rev: 9$ 
  */ 
 
-/* $Id: globals.h,v 1.3 2004/06/18 09:53:11 antirez Exp $ */
+/* $Id: globals.h,v 1.4p 2019/11/21 10:11:56 antirez Exp $ */
 
 #ifndef _GLOBALS_H
 #define _GLOBALS_H
@@ -86,6 +86,7 @@ extern int	opt_debug,
 		opt_tr_no_rtt,
 		opt_rand_dest,
 		opt_rand_source,
+		opt_rand_source_pool,
 		opt_lsrr,
 		opt_ssrr,
 		opt_beep,
@@ -124,6 +125,7 @@ extern char	ifname[1024],
 		datafilename[1024],
 		targetname[1024],
 		targetstraddr[1024],
+		sourceaddrpool[1024],
 		spoofaddr[1024],
 		icmp_ip_srcip[1024],
 		icmp_ip_dstip[1024],

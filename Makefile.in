@@ -38,7 +38,7 @@ OBJ=	main.o getifname.o getlhs.o \
 	adbuf.o hex.o apdutils.o sbignum.o \
 	sbignum-tables.o $(ARSOBJ)
 
-all: .depend hping3
+all: .depend hping3p
 
 dep: .depend
 .depend:
@@ -49,15 +49,15 @@ libars.a: $(ARSOBJ)
 	$(AR) rc $@ $^
 	$(RANLIB) $@
 
-hping3: byteorder.h $(OBJ)
-	$(CC) -o hping3 $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@
+hping3p: byteorder.h $(OBJ)
+	$(CC) -o hping3p $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@
 	@echo
-	./hping3 -v
-	@echo "use \`make strip' to strip hping3 binary"
-	@echo "use \`make install' to install hping3"
+	./hping3p -v
+	@echo "use \`make strip' to strip hping3p binary"
+	@echo "use \`make install' to install hping3p"
 
-hping3-static: byteorder.h $(OBJ)
-	$(CC) -static -o hping3-static $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@ -ldl
+hping3p-static: byteorder.h $(OBJ)
+	$(CC) -static -o hping3p-static $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@ -ldl
 
 byteorder.h:
 	./configure
@@ -66,27 +66,27 @@ byteorder.h:
 	$(CC) -c $(CCOPT) $(DEBUG) $(COMPILE_TIME) $<
 
 clean:
-	rm -rf hping3 *.o libars.a
+	rm -rf hping3p *.o libars.a
 
 distclean:
-	rm -rf hping3 *.o byteorder byteorder.h systype.h Makefile libars.a .depend
+	rm -rf hping3p *.o byteorder byteorder.h systype.h Makefile libars.a .depend
 
-install: hping3
-	cp -f hping3 /usr/sbin/
-	chmod 755 /usr/sbin/hping3
-	ln -s /usr/sbin/hping3 /usr/sbin/hping
-	ln -s /usr/sbin/hping3 /usr/sbin/hping2
+install: hping3p
+	cp -f hping3p /usr/sbin/
+	chmod 755 /usr/sbin/hping3p
+	ln -s /usr/sbin/hping3p /usr/sbin/hping
+	ln -s /usr/sbin/hping3p /usr/sbin/hping2
 	@if [ -d ${INSTALL_MANPATH}/man8 ]; then \
-		cp ./docs/hping3.8 ${INSTALL_MANPATH}/man8; \
-		chmod 644 ${INSTALL_MANPATH}/man8/hping3.8; \
+		cp ./docs/hping3p.8 ${INSTALL_MANPATH}/man8; \
+		chmod 644 ${INSTALL_MANPATH}/man8/hping3p.8; \
 	else \
 		echo "@@@@@@ WARNING @@@@@@"; \
 		echo "Can't install the man page: ${INSTALL_MANPATH}/man8 does not exist"; \
 	fi
 
-strip: hping3
-	@ls -l ./hping3
-	strip hping3
-	@ls -l ./hping3
+strip: hping3p
+	@ls -l ./hping3p
+	strip hping3p
+	@ls -l ./hping3p
 
 include .depend

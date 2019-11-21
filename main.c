@@ -13,7 +13,7 @@
  * Covered by GPL version 2, Read the COPYING file for more information
  */
 
-/* $Id: main.c,v 1.4 2004/06/18 09:53:11 antirez Exp $ */
+/* $Id: main.c,v 1.5p 2019/11/21 10:11:56 antirez Exp $ */
 
 #include <unistd.h>
 #include <string.h>
@@ -104,6 +104,7 @@ int
 	opt_tr_no_rtt	= FALSE,
 	opt_rand_dest	= FALSE,
 	opt_rand_source	= FALSE,
+	opt_rand_source_pool	= FALSE,
 	opt_lsrr        = FALSE,
 	opt_ssrr        = FALSE,
 	opt_cplt_rte    = FALSE,
@@ -139,6 +140,7 @@ char
 	datafilename	[1024],
 	targetname	[1024],
 	targetstraddr	[1024],
+	sourceaddrpool	[1024],
 	ifname		[1024] = {'\0'},
 	ifstraddr	[1024],
 	spoofaddr	[1024],
@@ -197,8 +199,8 @@ int main(int argc, char **argv)
 	}
 
 	if (parse_options(argc, argv) == -1) {
-		printf("hping2: missing host argument\n"
-			"Try `hping2 --help' for more information.\n");
+		printf("hping3p: missing host argument\n"
+			"Try `hping3p --help' for more information.\n");
 		exit(1);
 	}
 
@@ -302,7 +304,7 @@ int main(int argc, char **argv)
 	/* if we are in listemode enter in listenmain() else  */
 	/* print HPING... bla bla bla and enter in wait_packet() */
 	if (opt_listenmode) {
-		fprintf(stderr, "hping2 listen mode\n");
+		fprintf(stderr, "hping3p listen mode\n");
 
 		/* memory protection */
 		if (memlockall() == -1) {

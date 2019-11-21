@@ -1,5 +1,14 @@
 Read the README file to know about the new features in general.
 
+------ hping3p alpha2 -------
+
+One new feature has been added with respect to the base version:
+
+1) Using the --rand-source-pool option will enable hping3 to use random
+   source IP addresses, but taking them from a pool, which is specified
+   as an IP address with wildcards ('x'). For instance: x.x.x.x (all IPv4),
+   192.168.x.1, 192.168.x.x, etc...
+
 ------ hping3 alpha2 -------
 
 Two new features for the command line interface.

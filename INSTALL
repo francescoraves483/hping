@@ -1,4 +1,4 @@
-You can compile hping3 at least under:
+You can compile hping3p at least under:
 
 Linux
 OpenBSD
@@ -15,13 +15,19 @@ with all the kind of systems, including Linux.
 Linux
 -----
 
+You need the following libraries to be installed:
+libpcap-dev, tcl, tcl-dev
+
+Under Debian, you can install them with:
+$ sudo apt install libpcap-dev tcl tcl-dev
+
 please, follows this steps:
 
+$ sudo mkdir --parent /usr/local/man/man8
 $ ./configure (first try ./configure --help)
 $ vi Makefile (optional)
 $ make
-$ su
-# make install
+$ sudo make install
 
 FreeBSD, OpenBSD, NetBSD
 ------------------------
@@ -51,6 +57,13 @@ $ ./configure
 $ gmake
 $ su
 # gmake install
+
+UNINSTALLING hping3p (tested on Ubuntu)
+---------------------------------------
+Run the clean_install.sh script as root
+
+$ sudo ./clean_install.sh
+
 
 ALL
 ---

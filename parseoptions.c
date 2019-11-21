@@ -3,7 +3,7 @@
  * Under GPL, see the COPYING file for more information about
  * the license. */
 
-/* $Id: parseoptions.c,v 1.2 2004/06/18 09:53:11 antirez Exp $ */
+/* $Id: parseoptions.c,v 1.3p 2019/11/21 10:11:56 antirez Exp $ */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -32,7 +32,7 @@ enum {	OPT_COUNT, OPT_INTERVAL, OPT_NUMERIC, OPT_QUIET, OPT_INTERFACE,
 	OPT_ICMP_IPLEN, OPT_ICMP_IPID, OPT_ICMP_IPPROTO, OPT_ICMP_CKSUM,
 	OPT_ICMP_TS, OPT_ICMP_ADDR, OPT_TCPEXITCODE, OPT_FAST, OPT_TR_KEEP_TTL,
 	OPT_TCP_TIMESTAMP, OPT_TR_STOP, OPT_TR_NO_RTT, OPT_ICMP_HELP,
-	OPT_RAND_DEST, OPT_RAND_SOURCE, OPT_LSRR, OPT_SSRR, OPT_ROUTE_HELP,
+	OPT_RAND_DEST, OPT_RAND_SOURCE, OPT_RAND_SOURCE_POOL, OPT_LSRR, OPT_SSRR, OPT_ROUTE_HELP,
 	OPT_ICMP_IPSRC, OPT_ICMP_IPDST, OPT_ICMP_SRCPORT, OPT_ICMP_DSTPORT,
 	OPT_ICMP_GW, OPT_FORCE_ICMP, OPT_APD_SEND, OPT_SCAN, OPT_FASTER,
 	OPT_BEEP, OPT_FLOOD, OPT_CLOCK_SKEW, OPT_CS_WINDOW, OPT_CS_WINDOW_SHIFT,
@@ -112,6 +112,7 @@ static struct ago_optlist hping_optlist[] = {
 	{ '\0', "tr-stop",	OPT_TR_STOP,		AGO_NOARG },
 	{ '\0',	"tr-no-rtt",	OPT_TR_NO_RTT,		AGO_NOARG },
 	{ '\0', "rand-dest",	OPT_RAND_DEST,		AGO_NOARG },
+	{ '\0', "rand-source-pool",	OPT_RAND_SOURCE_POOL,	AGO_NEEDARG },
 	{ '\0', "rand-source",	OPT_RAND_SOURCE,	AGO_NOARG },
 	{ '\0', "lsrr",		OPT_LSRR, 		AGO_NEEDARG|AGO_EXCEPT0 },
 	{ '\0', "ssrr",		OPT_SSRR, 		AGO_NEEDARG|AGO_EXCEPT0 },
@@ -529,6 +530,10 @@ int parse_options(int argc, char **argv)
 		case OPT_RAND_SOURCE:
 			opt_rand_source = TRUE;
 			break;
+		case OPT_RAND_SOURCE_POOL:
+			opt_rand_source_pool = TRUE;
+			strlcpy(sourceaddrpool, ago_optarg, 1024);
+			break;
 		case OPT_LSRR:
 			opt_lsrr = TRUE;
 			parse_route(lsr, &lsr_length, ago_optarg);
@@ -659,6 +664,10 @@ int parse_options(int argc, char **argv)
 	} else if (opt_rand_dest == TRUE && ifname[0] == '\0') {
 		printf("Option error: you need to specify an interface "
 			"when the --rand-dest option is enabled\n");
+		exit(1);
+	} else if (opt_rand_source == TRUE && opt_rand_source_pool == TRUE) {
+		printf("Option error: you cannot specify --rand-source "
+			"and --rand-source-pool and the same time.\n");
 		exit(1);
 	}
 
