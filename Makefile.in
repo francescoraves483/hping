@@ -84,6 +84,19 @@ install: hping3p
 		echo "Can't install the man page: ${INSTALL_MANPATH}/man8 does not exist"; \
 	fi
 
+forced-install: hping3p
+	cp -f hping3p /usr/sbin/
+	chmod 755 /usr/sbin/hping3p
+	ln -s -f /usr/sbin/hping3p /usr/sbin/hping
+	ln -s -f /usr/sbin/hping3p /usr/sbin/hping2
+	@if [ -d ${INSTALL_MANPATH}/man8 ]; then \
+		cp ./docs/hping3p.8 ${INSTALL_MANPATH}/man8; \
+		chmod 644 ${INSTALL_MANPATH}/man8/hping3p.8; \
+	else \
+		echo "@@@@@@ WARNING @@@@@@"; \
+		echo "Can't install the man page: ${INSTALL_MANPATH}/man8 does not exist"; \
+	fi
+
 strip: hping3p
 	@ls -l ./hping3p
 	strip hping3p

@@ -21,13 +21,24 @@ libpcap-dev, tcl, tcl-dev
 Under Debian, you can install them with:
 $ sudo apt install libpcap-dev tcl tcl-dev
 
-please, follows this steps:
+Then, please, follow these steps:
 
 $ sudo mkdir --parent /usr/local/man/man8
 $ ./configure (first try ./configure --help)
 $ vi Makefile (optional)
 $ make
 $ sudo make install
+
+You can also use:
+$ sudo make forced-install
+
+If you want to execute "sudo make install" more than one time, without 
+getting an error like the following one:
+"ln: failed to create symbolic link '/usr/sbin/hping': File exists"
+
+This additional option has been added in hping3p and was not present
+in the original hping3 tool.
+
 
 FreeBSD, OpenBSD, NetBSD
 ------------------------
